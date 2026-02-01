@@ -159,12 +159,17 @@ gemini login
 │       └── cli-tools.jsonl      # Codex/Gemini入出力ログ
 │
 ├── .cursor/                     # Cursor Agent設定
+│   ├── commands/                # カスタムコマンド（/codex, /gemini 等）
+│   │   ├── codex.md
+│   │   ├── gemini.md
+│   │   ├── startproject.md
+│   │   ├── plan.md
+│   │   ├── tdd.md
+│   │   └── ...
 │   └── rules/                   # Cursor用ルール（MDC形式）
-│       ├── codex-delegation.mdc # Codex CLI呼び出しルール
-│       ├── gemini-delegation.mdc# Gemini CLI呼び出しルール
-│       ├── coding-principles.mdc
-│       ├── language.mdc
-│       └── dev-environment.mdc
+│       ├── codex-delegation.mdc
+│       ├── gemini-delegation.mdc
+│       └── ...
 │
 ├── .codex/                      # Codex CLI設定
 │   ├── AGENTS.md

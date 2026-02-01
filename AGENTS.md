@@ -60,6 +60,27 @@ gemini -p "prompt" < file.pdf 2>/dev/null
 
 ---
 
+## Commands
+
+Cursor Agent で `/` を入力してコマンドを実行できます。
+
+| Command | Description |
+|---------|-------------|
+| `/codex` | Codex CLI に設計・デバッグを相談 |
+| `/gemini` | Gemini CLI でリサーチ |
+| `/startproject` | マルチエージェント協調でプロジェクト開始 |
+| `/plan` | 実装計画を作成 |
+| `/tdd` | テスト駆動開発 |
+| `/design` | 設計決定を記録 |
+| `/simplify` | コードをシンプル化 |
+| `/review` | コードレビュー |
+| `/research-lib` | ライブラリ調査 |
+| `/checkpoint` | セッションを永続化 |
+
+→ 詳細: `.cursor/commands/`
+
+---
+
 ## Quick Reference
 
 ### Codex を使う時
