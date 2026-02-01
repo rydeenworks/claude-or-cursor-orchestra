@@ -1,0 +1,92 @@
+---
+description: Rules for delegating to Gemini CLI via MCP
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Gemini Delegation Rule
+
+**Gemini CLI is your research specialist. Call it via MCP tools.**
+
+## About Gemini
+
+Gemini CLI excels at:
+- **1M token context window** — Analyze entire codebases at once
+- **Google Search grounding** — Access latest information
+- **Multimodal processing** — Video, audio, PDF analysis
+
+**When you need research or large-scale analysis → Use MCP tool to consult Gemini.**
+
+## Gemini vs Codex: Choose the Right Tool
+
+| Task | Codex | Gemini |
+|------|-------|--------|
+| Design decisions | ✓ | |
+| Debugging | ✓ | |
+| Code implementation | ✓ | |
+| Trade-off analysis | ✓ | |
+| Large codebase understanding | | ✓ |
+| Pre-implementation research | | ✓ |
+| Latest docs/library research | | ✓ |
+| Video/Audio/PDF analysis | | ✓ |
+
+## When to Consult Gemini
+
+ALWAYS consult Gemini BEFORE:
+
+1. **Pre-implementation research** - Best practices, library comparison
+2. **Large codebase analysis** - Repository-wide understanding
+3. **Documentation search** - Latest official docs, breaking changes
+4. **Multimodal tasks** - Video, audio, PDF content extraction
+
+### Trigger Phrases (User Input)
+
+Consult Gemini when user says:
+
+| Japanese | English |
+|----------|---------|
+| 「調べて」「リサーチして」「調査して」 | "Research" "Investigate" "Look up" |
+| 「このPDF/動画/音声を見て」 | "Analyze this PDF/video/audio" |
+| 「コードベース全体を理解して」 | "Understand the entire codebase" |
+| 「最新のドキュメントを確認して」 | "Check the latest documentation" |
+| 「〜について情報を集めて」 | "Gather information about X" |
+
+## When NOT to Consult
+
+Skip Gemini for:
+
+- Design decisions (use Codex instead)
+- Code implementation (use Codex instead)
+- Debugging (use Codex instead)
+- Simple file operations (do directly)
+- Running tests/linting (do directly)
+
+## How to Consult (via MCP)
+
+Use the MCP tools provided:
+
+| Tool | Use Case |
+|------|----------|
+| `gemini_research` | Library research, best practices, documentation |
+| `gemini_analyze` | Codebase analysis, architecture understanding |
+
+### Examples
+
+```
+# Research
+Use gemini_research: "What are the best Python async libraries in 2026?"
+
+# Codebase analysis
+Use gemini_analyze: "Understand the architecture and key modules of this project"
+
+# Documentation
+Use gemini_research: "What are the breaking changes in FastAPI 1.0?"
+```
+
+## Language Protocol
+
+1. Ask Gemini in **English**
+2. Receive response in **English**
+3. Report to user in **Japanese**
+
+**Use Gemini for research, Codex for reasoning.**

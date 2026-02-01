@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "codex": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "src.mcp.codex_server"],
+      "cwd": "${workspaceFolder}"
+    },
+    "gemini": {
+      "command": "uv",
+      "args": ["run", "python", "-m", "src.mcp.gemini_server"],
+      "cwd": "${workspaceFolder}"
+    }
+  }
+}

@@ -5,18 +5,37 @@
 Multi-Agent AI Development Environment
 
 ```
-Claude Code (Orchestrator) ─┬─ Codex CLI (Deep Reasoning)
-                            ├─ Gemini CLI (Research)
-                            └─ Subagents (Parallel Tasks)
+┌─ Claude Code (Orchestrator) ─┬─ Codex CLI (Deep Reasoning)
+│                              ├─ Gemini CLI (Research)
+│                              └─ Subagents (Parallel Tasks)
+│
+└─ Cursor Agent (Orchestrator) ─┬─ Codex CLI (via MCP)
+                                └─ Gemini CLI (via MCP)
 ```
 
 ## Quick Start
 
 既存プロジェクトのルートで実行:
 
+### Claude Code で使う場合
+
 ```bash
-git clone --depth 1 https://github.com/DeL-TaiseiOzaki/claude-code-orchestra.git .starter && cp -r .starter/.claude .starter/.codex .starter/.gemini .starter/CLAUDE.md . && rm -rf .starter && claude
+git clone --depth 1 https://github.com/rydeenworks/claude-or-cursor-orchestra.git .starter && \
+cp -r .starter/.claude .starter/.codex .starter/.gemini .starter/CLAUDE.md . && \
+rm -rf .starter && claude
 ```
+
+### Cursor Agent で使う場合
+
+```bash
+git clone --depth 1 https://github.com/rydeenworks/claude-or-cursor-orchestra.git .starter && \
+cp -r .starter/.claude .starter/.codex .starter/.gemini .starter/.cursor .starter/CLAUDE.md .starter/AGENTS.md .starter/src . && \
+rm -rf .starter
+```
+
+その後、Cursor で該当フォルダを開き、Agent モードを使用してください。
+
+**Note**: Cursor Agent は MCP 経由で Codex/Gemini を呼び出します。`src/mcp/` にMCPサーバーが含まれています。
 
 ## Prerequisites
 
@@ -43,6 +62,8 @@ gemini login
 
 ## Architecture
 
+### Claude Code モード
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │           Claude Code (Orchestrator)                        │
@@ -64,6 +85,27 @@ gemini login
 └─────────────────────────────────────────────────────────────┘
 ```
 
+### Cursor Agent モード
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│           Cursor Agent (Orchestrator)                       │
+│           → MCP経由でCodex/Geminiを呼び出し                 │
+│           → .cursor/mcp.json でサーバー設定                 │
+│                      ↓                                      │
+│  ┌───────────────────────────────────────────────────────┐  │
+│  │              MCP Servers (src/mcp/)                   │  │
+│  │                                                       │  │
+│  │   ┌──────────────┐        ┌──────────────┐           │  │
+│  │   │ codex_server │        │gemini_server │           │  │
+│  │   │              │        │              │           │  │
+│  │   │ codex_consult│        │gemini_research│          │  │
+│  │   │codex_implement│       │gemini_analyze│           │  │
+│  │   └──────────────┘        └──────────────┘           │  │
+│  └───────────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
+
 ### コンテキスト管理（重要）
 
 メインオーケストレーターのコンテキストを節約するため、大きな出力が予想されるタスクはサブエージェント経由で実行します。
@@ -79,12 +121,18 @@ gemini login
 
 ```
 .
-├── CLAUDE.md                    # メインシステムドキュメント
+├── CLAUDE.md                    # Claude Code用メインドキュメント
+├── AGENTS.md                    # Cursor Agent用メインドキュメント
 ├── README.md
 ├── pyproject.toml               # Python プロジェクト設定
 ├── uv.lock                      # 依存関係ロックファイル
 │
-├── .claude/
+├── src/                         # MCPサーバー実装
+│   └── mcp/
+│       ├── codex_server.py      # Codex MCP サーバー
+│       └── gemini_server.py     # Gemini MCP サーバー
+│
+├── .claude/                     # Claude Code設定
 │   ├── agents/
 │   │   └── general-purpose.md   # サブエージェント設定
 │   │
@@ -114,6 +162,15 @@ gemini login
 │   │
 │   └── logs/
 │       └── cli-tools.jsonl      # Codex/Gemini入出力ログ
+│
+├── .cursor/                     # Cursor Agent設定
+│   ├── mcp.json                 # MCP サーバー登録
+│   └── rules/                   # Cursor用ルール（MDC形式）
+│       ├── codex-delegation.mdc
+│       ├── gemini-delegation.mdc
+│       ├── coding-principles.mdc
+│       ├── language.mdc
+│       └── dev-environment.mdc
 │
 ├── .codex/                      # Codex CLI設定
 │   ├── AGENTS.md
