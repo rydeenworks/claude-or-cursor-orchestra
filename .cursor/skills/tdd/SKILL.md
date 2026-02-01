@@ -1,3 +1,8 @@
+---
+name: tdd
+description: Implement features using Test-Driven Development (TDD) with Red-Green-Refactor cycle.
+---
+
 # Test-Driven Development
 
 **$ARGUMENTS を TDD (Red-Green-Refactor) で実装する。**
@@ -91,7 +96,6 @@ uv run pytest --cov={module} --cov-report=term-missing
 ### Test Cases
 - [x] {test1}: {description}
 - [x] {test2}: {description}
-...
 
 ### Coverage
 {Coverage report}
@@ -100,10 +104,3 @@ uv run pytest --cov={module} --cov-report=term-missing
 - `src/{module}.py`: {description}
 - `tests/test_{module}.py`: {N} tests
 ```
-
-## Notes
-
-- テストを**先に**書く（後ではない）
-- 各サイクルを**小さく**保つ
-- テストが通ってから**リファクタ**
-- 完璧より**動くコード**を優先

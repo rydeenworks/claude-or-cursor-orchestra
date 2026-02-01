@@ -1,3 +1,10 @@
+---
+name: startproject
+description: |
+  Start a new project/feature with multi-agent collaboration.
+  Workflow: Gemini research → Requirements → Codex review → Task creation.
+---
+
 # Start Project
 
 **マルチエージェント協調でプロジェクトを開始する。**

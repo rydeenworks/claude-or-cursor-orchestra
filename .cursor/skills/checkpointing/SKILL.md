@@ -1,3 +1,11 @@
+---
+name: checkpointing
+description: |
+  Save session context to agent configuration files or create full checkpoint files.
+  Supports session history (default), full checkpoint (--full),
+  and skill analysis (--full --analyze).
+---
+
 # Checkpointing
 
 **セッションコンテキストを永続化する。**
@@ -64,7 +72,6 @@ python .claude/skills/checkpointing/checkpoint.py --full --analyze
 ## Git History
 ### Commits
 - `abc1234` Add feature
-- `def5678` Update docs
 
 ### File Changes
 **Created:**
@@ -74,10 +81,10 @@ python .claude/skills/checkpointing/checkpoint.py --full --analyze
 - `existing.py` (+80, -20)
 
 ## CLI Tool Consultations
-### Codex (3 consultations)
+### Codex
 - ✓ 設計相談...
 
-### Gemini (2 researches)
+### Gemini
 - ✓ 調査...
 ```
 

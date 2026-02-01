@@ -1,3 +1,11 @@
+---
+name: codex
+description: |
+  Consult Codex CLI for design decisions, debugging, and code analysis.
+  Use when facing difficult decisions or need deep reasoning.
+  Triggers: "think deeper", "analyze", "consult codex", "設計", "デバッグ"
+---
+
 # Codex CLI Consultation
 
 **Codex CLI (gpt-5.2-codex) に設計・デバッグ・分析を相談する。**
@@ -31,6 +39,13 @@ codex exec --model gpt-5.2-codex --sandbox workspace-write --full-auto "
 | トレードオフ分析 | ✓ |
 | コードレビュー | ✓ |
 | リファクタリング | ✓ |
+
+## Sandbox Modes
+
+| Mode | Use Case |
+|------|----------|
+| `read-only` | Analysis, review, debugging advice |
+| `workspace-write` | Implementation, refactoring, fixes |
 
 ## Language Protocol
 

@@ -60,24 +60,27 @@ gemini -p "prompt" < file.pdf 2>/dev/null
 
 ---
 
-## Commands
+## Skills
 
-Cursor Agent で `/` を入力してコマンドを実行できます。
+Cursor Agent で `/` を入力してスキルを実行できます。
 
-| Command | Description |
-|---------|-------------|
+| Skill | Description |
+|-------|-------------|
 | `/codex` | Codex CLI に設計・デバッグを相談 |
 | `/gemini` | Gemini CLI でリサーチ |
 | `/startproject` | マルチエージェント協調でプロジェクト開始 |
+| `/init` | プロジェクト分析・AGENTS.md 更新 |
 | `/plan` | 実装計画を作成 |
 | `/tdd` | テスト駆動開発 |
-| `/design` | 設計決定を記録 |
+| `/design-tracker` | 設計決定を自動記録 |
+| `/update-design` | 設計ドキュメントを明示的に更新 |
 | `/simplify` | コードをシンプル化 |
 | `/review` | コードレビュー |
-| `/research-lib` | ライブラリ調査 |
-| `/checkpoint` | セッションを永続化 |
+| `/research-lib` | ライブラリ調査・ドキュメント作成 |
+| `/update-lib-docs` | ライブラリドキュメントを最新化 |
+| `/checkpointing` | セッションを永続化 |
 
-→ 詳細: `.cursor/commands/`
+→ 詳細: `.cursor/skills/`
 
 ---
 

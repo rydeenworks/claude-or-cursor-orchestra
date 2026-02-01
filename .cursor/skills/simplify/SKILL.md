@@ -1,3 +1,8 @@
+---
+name: simplify
+description: Simplify and refactor code while preserving functionality and library constraints.
+---
+
 # Simplify Code
 
 **$ARGUMENTS をシンプル化・リファクタリングする。**
@@ -32,8 +37,6 @@
 - ライブラリ使用を壊さないか確認
 
 ### 4. Execute Refactoring
-
-以下のパターンに従って変更を適用：
 
 **Early Return:**
 ```python
@@ -71,22 +74,6 @@ def main():
 
 ```bash
 uv run pytest -v
-```
-
-## Optional: Codex Review
-
-リファクタリング後に Codex でレビュー：
-
-```bash
-codex exec --model gpt-5.2-codex --sandbox read-only --full-auto "
-Review this refactored code:
-{code}
-
-Check for:
-1. Readability improvements
-2. Potential issues
-3. Further simplification opportunities
-" 2>/dev/null
 ```
 
 ## Notes

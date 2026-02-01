@@ -159,12 +159,13 @@ gemini login
 │       └── cli-tools.jsonl      # Codex/Gemini入出力ログ
 │
 ├── .cursor/                     # Cursor Agent設定
-│   ├── commands/                # カスタムコマンド（/codex, /gemini 等）
-│   │   ├── codex.md
-│   │   ├── gemini.md
-│   │   ├── startproject.md
-│   │   ├── plan.md
-│   │   ├── tdd.md
+│   ├── skills/                  # スキル（/codex, /gemini 等）
+│   │   ├── codex/SKILL.md
+│   │   ├── gemini/SKILL.md
+│   │   ├── startproject/SKILL.md
+│   │   ├── init/SKILL.md
+│   │   ├── plan/SKILL.md
+│   │   ├── tdd/SKILL.md
 │   │   └── ...
 │   └── rules/                   # Cursor用ルール（MDC形式）
 │       ├── codex-delegation.mdc

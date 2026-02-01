@@ -1,3 +1,8 @@
+---
+name: review
+description: Code review with Codex CLI. Check for bugs, security issues, and improvements.
+---
+
 # Code Review
 
 **$ARGUMENTS のコードをレビューする。**

@@ -1,3 +1,12 @@
+---
+name: design-tracker
+description: |
+  PROACTIVELY track and document project design decisions.
+  Activate when detecting architecture discussions, implementation decisions,
+  pattern choices, or library selections.
+  Triggers: "記録して", "設計どうなってる", "record this"
+---
+
 # Design Tracker
 
 **設計決定を `.claude/docs/DESIGN.md` に記録する。**
@@ -45,34 +54,9 @@
 - どのセクションを更新したか
 - 変更の簡単な要約
 
-## DESIGN.md Template
+## Language Rules
 
-```markdown
-# Project Design Document
-
-## Overview
-{Project purpose and goals}
-
-## Architecture
-{System structure and components}
-
-## Implementation Plan
-
-### Patterns
-- {Pattern}: {Why we use it}
-
-### Libraries
-- {Library}: {Purpose and rationale}
-
-### Key Decisions
-- {Decision}: {Rationale}
-
-## TODO
-- [ ] {Future task}
-
-## Open Questions
-- {Unresolved question}
-
-## Changelog
-- {Date}: {What changed}
-```
+- **Thinking/Reasoning**: English
+- **Code examples**: English
+- **Document content**: English (technical terms) + Japanese (descriptions OK)
+- **User communication**: Japanese

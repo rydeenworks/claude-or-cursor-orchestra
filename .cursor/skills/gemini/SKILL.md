@@ -1,3 +1,11 @@
+---
+name: gemini
+description: |
+  Research with Gemini CLI for library comparison, documentation lookup,
+  codebase analysis, and multimodal processing (PDF/video/audio).
+  Triggers: "research", "investigate", "調べて", "リサーチ", "PDF", "動画"
+---
+
 # Gemini CLI Research
 
 **Gemini CLI でリサーチ・コードベース分析・マルチモーダル処理を行う。**

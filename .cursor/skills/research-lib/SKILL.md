@@ -1,10 +1,15 @@
+---
+name: research-lib
+description: Research a library and create comprehensive documentation in .claude/docs/libraries/.
+---
+
 # Research Library
 
 **$ARGUMENTS を調査し `.claude/docs/libraries/` にドキュメントを作成する。**
 
 ## Research Items
 
-### Always Verify via Web Search
+### Always Verify via Web Search or Gemini
 
 - 公式ドキュメント
 - GitHub README

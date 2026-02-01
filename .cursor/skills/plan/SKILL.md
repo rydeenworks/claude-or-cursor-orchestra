@@ -1,3 +1,8 @@
+---
+name: plan
+description: Create a detailed implementation plan for a feature or task. Use when user wants to plan before coding.
+---
+
 # Create Implementation Plan
 
 **$ARGUMENTS の実装計画を作成する。**
@@ -16,12 +21,10 @@
 
 コードベースを調査：
 
-```
 - 関連する既存コード
 - 影響を受けるファイル
 - 使用するライブラリ/パターン
 - 既存のテスト
-```
 
 ### 3. Break Down Implementation Steps
 
@@ -63,7 +66,7 @@
 
 ## Optional: Codex Review
 
-計画をCodexでレビュー：
+計画を Codex でレビュー：
 
 ```bash
 codex exec --model gpt-5.2-codex --sandbox read-only --full-auto "
