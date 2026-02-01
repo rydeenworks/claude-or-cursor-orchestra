@@ -1,19 +1,19 @@
 ---
-description: Rules for delegating to Codex CLI via MCP
+description: Rules for delegating to Codex CLI
 globs: ["**/*"]
 alwaysApply: true
 ---
 
 # Codex Delegation Rule
 
-**Codex CLI is your highly capable supporter. Call it via MCP tools.**
+**Codex CLI is your highly capable supporter. Call it directly via Bash.**
 
 ## About Codex
 
 Codex CLI is an AI with exceptional reasoning and task completion abilities.
 Think of it as a trusted senior expert you can always consult.
 
-**When facing difficult decisions → Use MCP tool to consult Codex.**
+**When facing difficult decisions → Call Codex via Bash.**
 
 ## When to Consult Codex
 
@@ -46,26 +46,29 @@ Skip Codex for simple, straightforward tasks:
 - Tasks with clear, single solutions
 - Reading/searching files
 
-## How to Consult (via MCP)
+## How to Consult (via Bash)
 
-Use the MCP tools provided:
+Use Bash to call Codex CLI directly:
 
-| Tool | Use Case |
-|------|----------|
-| `codex_consult` | Design review, debugging analysis, trade-offs (read-only) |
-| `codex_implement` | Implement, fix, refactor (can modify files) |
+| Mode | Command | Use Case |
+|------|---------|----------|
+| Analysis | `codex exec --model gpt-5.2-codex --sandbox read-only --full-auto "prompt"` | Design review, debugging, trade-offs |
+| Work | `codex exec --model gpt-5.2-codex --sandbox workspace-write --full-auto "prompt"` | Implement, fix, refactor |
 
 ### Examples
 
-```
-# Design consultation
-Use codex_consult: "How should I structure the authentication module?"
+```bash
+# Design consultation (read-only)
+codex exec --model gpt-5.2-codex --sandbox read-only --full-auto \
+  "How should I structure the authentication module?" 2>/dev/null
 
-# Debugging
-Use codex_consult: "Why is this test failing? [paste error]"
+# Debugging (read-only)
+codex exec --model gpt-5.2-codex --sandbox read-only --full-auto \
+  "Why is this test failing? Error: ..." 2>/dev/null
 
-# Implementation
-Use codex_implement: "Implement a retry mechanism with exponential backoff"
+# Implementation (workspace-write)
+codex exec --model gpt-5.2-codex --sandbox workspace-write --full-auto \
+  "Implement a retry mechanism with exponential backoff" 2>/dev/null
 ```
 
 ## Language Protocol

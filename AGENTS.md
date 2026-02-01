@@ -2,7 +2,7 @@
 
 **マルチエージェント協調フレームワーク**
 
-Cursor Agent が Codex CLI（深い推論）と Gemini CLI（大規模リサーチ）を MCP 経由で統合し、各エージェントの強みを活かして開発を加速する。
+Cursor Agent が Codex CLI（深い推論）と Gemini CLI（大規模リサーチ）を Bash 経由で統合し、各エージェントの強みを活かして開発を加速する。
 
 ---
 
@@ -13,7 +13,7 @@ Cursor Agent が Codex CLI（深い推論）と Gemini CLI（大規模リサー�
 | Command | Orchestrator | Config |
 |---------|--------------|--------|
 | `claude` | Claude Code | `CLAUDE.md`, `.claude/` |
-| `agent` | Cursor Agent | `AGENTS.md`, `.cursor/` |
+| Cursor | Cursor Agent | `AGENTS.md`, `.cursor/` |
 
 **現在のモード: Cursor Agent**
 
@@ -33,28 +33,29 @@ Cursor Agent が Codex CLI（深い推論）と Gemini CLI（大規模リサー�
 
 ## How to Call Codex/Gemini
 
-Cursor Agent は **MCP (Model Context Protocol)** 経由で Codex/Gemini を呼び出す。
+Cursor Agent は **Bash** 経由で直接 Codex/Gemini を呼び出す（Claude Code と同じ設計）。
 
-### Available MCP Tools
+### Codex CLI
 
-| Tool | Description |
-|------|-------------|
-| `codex_consult` | Codex に設計・デバッグを相談 |
-| `codex_implement` | Codex にコード実装を依頼 |
-| `gemini_research` | Gemini にリサーチを依頼 |
-| `gemini_analyze` | Gemini にコードベース分析を依頼 |
+```bash
+# 設計・デバッグ相談（read-only）
+codex exec --model gpt-5.2-codex --sandbox read-only --full-auto "prompt" 2>/dev/null
 
-### Usage Examples
-
+# コード実装（workspace-write）
+codex exec --model gpt-5.2-codex --sandbox workspace-write --full-auto "prompt" 2>/dev/null
 ```
-# Design consultation
-Use codex_consult tool: "How should I implement authentication?"
 
-# Research
-Use gemini_research tool: "What are the best practices for Python async?"
+### Gemini CLI
 
-# Codebase analysis
-Use gemini_analyze tool: "Understand the architecture of this project"
+```bash
+# リサーチ
+gemini -p "prompt" 2>/dev/null
+
+# コードベース分析
+gemini -p "prompt" --include-directories . 2>/dev/null
+
+# マルチモーダル（PDF等）
+gemini -p "prompt" < file.pdf 2>/dev/null
 ```
 
 ---
@@ -82,7 +83,7 @@ Use gemini_analyze tool: "Understand the architecture of this project"
 ## Workflow
 
 1. ユーザーがタスクを依頼
-2. Cursor Agent が必要に応じて Codex/Gemini を MCP 経由で呼び出し
+2. Cursor Agent が必要に応じて Bash で Codex/Gemini を呼び出し
 3. 結果を統合してユーザーに報告
 4. 実装・テスト・コミット
 

@@ -1,12 +1,12 @@
 ---
-description: Rules for delegating to Gemini CLI via MCP
+description: Rules for delegating to Gemini CLI
 globs: ["**/*"]
 alwaysApply: true
 ---
 
 # Gemini Delegation Rule
 
-**Gemini CLI is your research specialist. Call it via MCP tools.**
+**Gemini CLI is your research specialist. Call it directly via Bash.**
 
 ## About Gemini
 
@@ -15,7 +15,7 @@ Gemini CLI excels at:
 - **Google Search grounding** — Access latest information
 - **Multimodal processing** — Video, audio, PDF analysis
 
-**When you need research or large-scale analysis → Use MCP tool to consult Gemini.**
+**When you need research or large-scale analysis → Call Gemini via Bash.**
 
 ## Gemini vs Codex: Choose the Right Tool
 
@@ -61,26 +61,31 @@ Skip Gemini for:
 - Simple file operations (do directly)
 - Running tests/linting (do directly)
 
-## How to Consult (via MCP)
+## How to Consult (via Bash)
 
-Use the MCP tools provided:
+Use Bash to call Gemini CLI directly:
 
-| Tool | Use Case |
-|------|----------|
-| `gemini_research` | Library research, best practices, documentation |
-| `gemini_analyze` | Codebase analysis, architecture understanding |
+| Mode | Command | Use Case |
+|------|---------|----------|
+| Research | `gemini -p "prompt"` | Library research, best practices, documentation |
+| Codebase | `gemini -p "prompt" --include-directories .` | Architecture understanding, repository-wide analysis |
+| Multimodal | `gemini -p "prompt" < file.pdf` | Video, audio, PDF analysis |
 
 ### Examples
 
-```
+```bash
 # Research
-Use gemini_research: "What are the best Python async libraries in 2026?"
+gemini -p "What are the best Python async libraries in 2026?" 2>/dev/null
 
 # Codebase analysis
-Use gemini_analyze: "Understand the architecture and key modules of this project"
+gemini -p "Understand the architecture and key modules of this project" \
+  --include-directories . 2>/dev/null
 
 # Documentation
-Use gemini_research: "What are the breaking changes in FastAPI 1.0?"
+gemini -p "What are the breaking changes in FastAPI 1.0?" 2>/dev/null
+
+# Multimodal (PDF)
+gemini -p "Summarize the key points of this document" < doc.pdf 2>/dev/null
 ```
 
 ## Language Protocol
