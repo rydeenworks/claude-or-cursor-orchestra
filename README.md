@@ -92,15 +92,18 @@ gemini login
 │           Cursor Agent (Orchestrator)                       │
 │           → Bash経由でCodex/Geminiを呼び出し                │
 │           → .cursor/rules/ でルール設定                     │
+│           → .cursor/hooks.json で自動化                     │
 │                      ↓                                      │
 │  ┌───────────────────────────────────────────────────────┐  │
-│  │              Bash (Direct CLI Call)                   │  │
+│  │   Hooks (自動化)          Subagents (専門エージェント) │  │
+│  │   ├─ agent-router         ├─ /codex-consultant        │  │
+│  │   ├─ lint-on-save         └─ /gemini-researcher       │  │
+│  │   └─ suggest-gemini                                   │  │
 │  │                                                       │  │
 │  │   ┌──────────────┐        ┌──────────────┐           │  │
 │  │   │  Codex CLI   │        │  Gemini CLI  │           │  │
-│  │   │              │        │              │           │  │
-│  │   │ codex exec   │        │ gemini -p    │           │  │
-│  │   │  --full-auto │        │              │           │  │
+│  │   │  設計・推論  │        │  リサーチ    │           │  │
+│  │   │  デバッグ    │        │  マルチモーダル│          │  │
 │  │   └──────────────┘        └──────────────┘           │  │
 │  └───────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────┘
@@ -159,18 +162,37 @@ gemini login
 │       └── cli-tools.jsonl      # Codex/Gemini入出力ログ
 │
 ├── .cursor/                     # Cursor Agent設定
-│   ├── skills/                  # スキル（/codex, /gemini 等）
-│   │   ├── codex/SKILL.md
-│   │   ├── gemini/SKILL.md
+│   ├── hooks.json               # Hook設定ファイル
+│   │
+│   ├── hooks/                   # 自動化フック（Claude Codeと同等）
+│   │   ├── agent-router.py      # エージェントルーティング
+│   │   ├── check-codex-before-write.py
+│   │   ├── check-codex-after-plan.py
+│   │   ├── lint-on-save.py
+│   │   ├── log-cli-tools.py
+│   │   ├── post-implementation-review.py
+│   │   ├── post-test-analysis.py
+│   │   └── suggest-gemini-research.py
+│   │
+│   ├── agents/                  # サブエージェント定義
+│   │   ├── codex-consultant.md  # /codex-consultant で呼び出し
+│   │   └── gemini-researcher.md # /gemini-researcher で呼び出し
+│   │
+│   ├── skills/                  # スキル（/codex-system, /gemini-system 等）
+│   │   ├── codex-system/SKILL.md
+│   │   ├── gemini-system/SKILL.md
 │   │   ├── startproject/SKILL.md
-│   │   ├── init/SKILL.md
 │   │   ├── plan/SKILL.md
 │   │   ├── tdd/SKILL.md
 │   │   └── ...
-│   └── rules/                   # Cursor用ルール（MDC形式）
-│       ├── codex-delegation.mdc
-│       ├── gemini-delegation.mdc
-│       └── ...
+│   │
+│   ├── rules/                   # Cursor用ルール（MDC形式）
+│   │   ├── codex-delegation.mdc
+│   │   ├── gemini-delegation.mdc
+│   │   └── ...
+│   │
+│   ├── docs/research/           # Gemini調査結果保存先
+│   └── logs/                    # CLIツールログ
 │
 ├── .codex/                      # Codex CLI設定
 │   ├── AGENTS.md
@@ -294,13 +316,36 @@ uv run ruff check .
 ## Hooks
 
 自動化フックにより、適切なタイミングでエージェント連携を提案します。
+**Claude CodeとCursorで同じ8つのフックを提供。**
 
 | フック | トリガー | 動作 |
 |--------|----------|------|
 | `agent-router.py` | ユーザー入力 | Codex/Geminiへのルーティング提案 |
-| `lint-on-save.py` | ファイル保存 | 自動lint実行 |
+| `suggest-gemini-research.py` | Web検索/取得 | Geminiリサーチ提案 |
 | `check-codex-before-write.py` | ファイル書き込み前 | Codex相談提案 |
+| `check-codex-after-plan.py` | 計画タスク完了後 | Codexレビュー提案 |
+| `lint-on-save.py` | Pythonファイル保存 | 自動lint実行（ruff/ty） |
+| `post-implementation-review.py` | 実装完了後 | コードレビュー提案 |
+| `post-test-analysis.py` | pytest実行後 | テスト失敗分析 |
 | `log-cli-tools.py` | Codex/Gemini実行 | 入出力ログ記録 |
+
+### Hook設定ファイル
+
+| 環境 | 設定ファイル | スクリプト場所 |
+|------|-------------|---------------|
+| Claude Code | `.claude/settings.json` | `.claude/hooks/` |
+| Cursor | `.cursor/hooks.json` | `.cursor/hooks/` |
+
+## Cursor Subagents
+
+Cursor専用のサブエージェントを提供。`/エージェント名` で呼び出し可能。
+
+| エージェント | 用途 | 呼び出し例 |
+|-------------|------|-----------|
+| `/codex-consultant` | 設計・デバッグ・分析 | `/codex-consultant 認証モジュールの設計` |
+| `/gemini-researcher` | リサーチ・マルチモーダル | `/gemini-researcher FastAPIベストプラクティス` |
+
+**Note**: Claude Codeでは `Task` ツールの `subagent_type` パラメータで同等機能を提供。
 
 ## Language Rules
 
