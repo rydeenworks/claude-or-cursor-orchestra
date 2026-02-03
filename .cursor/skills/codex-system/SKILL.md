@@ -1,5 +1,5 @@
 ---
-name: codex
+name: codex-system
 description: |
   Consult Codex CLI for design decisions, debugging, and code analysis.
   Use when facing difficult decisions or need deep reasoning.

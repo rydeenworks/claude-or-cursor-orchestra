@@ -1,5 +1,5 @@
 ---
-name: gemini
+name: gemini-system
 description: |
   Research with Gemini CLI for library comparison, documentation lookup,
   codebase analysis, and multimodal processing (PDF/video/audio).
